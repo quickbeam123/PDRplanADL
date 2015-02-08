@@ -2,6 +2,8 @@
 #
 # Makefile for FF v 1.0
 #
+# Extended for PDRPlanMini
+#
 
 
 ####### FLAGS
@@ -15,6 +17,10 @@ CFLAGS	= -O6 -Wall -g -ansi $(TYPE) $(ADDONS)
 # -g -pg
 
 LIBS    = -lm
+
+CPP     = g++ 
+
+CPPFLAGS = -O6 -Wall -ansi -g
 
 
 ####### Files
@@ -30,7 +36,7 @@ PDDL_PARSER_OBJ = scan-fct_pddl.tab.o \
 	scan-ops_pddl.tab.o 
 
 
-SOURCES 	= main.c \
+SOURCES 	= main_orig.c \
 	memory.c \
 	output.c \
 	parse.c \
@@ -42,7 +48,11 @@ SOURCES 	= main.c \
 	relax.c \
 	search.c
 
-OBJECTS 	= $(SOURCES:.c=.o)
+CPP_SOURCES = Main.cpp
+                
+OBJECTS = $(SOURCES:.c=.o)
+
+CPPOBJECTS = $(CPP_SOURCES:.cpp=.o)
 
 ####### Implicit rules
 
@@ -50,13 +60,18 @@ OBJECTS 	= $(SOURCES:.c=.o)
 
 .SUFFIXES: .c .o
 
+.SUFFIXES: .cpp .o
+
 .c.o:; $(CC) -c $(CFLAGS) $<
+
+.cpp.o:; $(CPP) -c $(CPPFLAGS) $<
 
 ####### Build rules
 
+all: pdr
 
-ff: $(OBJECTS) $(PDDL_PARSER_OBJ)
-	$(CC) -o ff $(OBJECTS) $(PDDL_PARSER_OBJ) $(CFLAGS) $(LIBS)
+pdr: $(CPPOBJECTS) $(OBJECTS) $(PDDL_PARSER_OBJ) 
+	$(CPP) -o pdr $(CPPOBJECTS) $(OBJECTS) $(PDDL_PARSER_OBJ) $(CPPFLAGS) $(LIBS)
 
 # pddl syntax
 scan-fct_pddl.tab.c: scan-fct_pddl.y lex.fct_pddl.c
@@ -74,17 +89,17 @@ lex.ops_pddl.c: lex-ops_pddl.l
 
 # misc
 clean:
-	rm -f *.o *.bak *~ *% core *_pure_p9_c0_400.o.warnings \
+	rm -f pdr *.o *.bak *~ *% core *_pure_p9_c0_400.o.warnings \
         \#*\# $(RES_PARSER_SRC) $(PDDL_PARSER_SRC)
 
 veryclean: clean
-	rm -f ff H* J* K* L* O* graph.* *.symbex gmon.out \
+	rm -f pdr H* J* K* L* O* graph.* *.symbex gmon.out \
 	$(PDDL_PARSER_SRC) \
 	lex.fct_pddl.c lex.ops_pddl.c lex.probname.c \
 	*.output
 
 depend:
-	makedepend -- $(SOURCES) $(PDDL_PARSER_SRC)
+	makedepend -- $(SOURCES) $(CPP_SOURCES) $(PDDL_PARSER_SRC)
 
 lint:
 	lclint -booltype Bool $(SOURCES) 2> output.lint

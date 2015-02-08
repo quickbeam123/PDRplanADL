@@ -1106,7 +1106,7 @@ void output_planner_info( void );
 void ff_usage( void );
 Bool process_command_line( int argc, char *argv[] );
 
-
+int main_orig( int argc, char *argv[] );
 
 
 

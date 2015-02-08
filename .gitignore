@@ -3,6 +3,6 @@ lex.ops_pddl.c
 scan-fct_pddl.tab.c
 scan-ops_pddl.tab.c
 *.o
-ff
+pdr
 *.pddl
 *.pddl.soln

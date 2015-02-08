@@ -483,7 +483,7 @@ struct tms lstart, lend;
 
 
 
-int main( int argc, char *argv[] )
+int main_orig( int argc, char *argv[] )
 
 {
 
