@@ -696,7 +696,7 @@ typedef struct _NormEffect {
 
 typedef struct _NormOperator {
   
-  Operator *operator;
+  Operator *_operator;
 
   int num_vars, var_types[MAX_VARS];
   int inst_table[MAX_VARS];
@@ -744,7 +744,7 @@ typedef struct _EasyTemplate {
  */
 typedef struct _MixedOperator {
   
-  Operator *operator;
+  Operator *_operator;
 
   int inst_table[MAX_VARS];
 
@@ -783,7 +783,7 @@ typedef struct _PseudoActionEffect {
 
 typedef struct _PseudoAction {
 
-  Operator *operator;
+  Operator *_operator;
 
   int inst_table[MAX_VARS];
 

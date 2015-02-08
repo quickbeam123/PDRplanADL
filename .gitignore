@@ -4,5 +4,8 @@ scan-fct_pddl.tab.c
 scan-ops_pddl.tab.c
 *.o
 pdr
+pdr.exe
 *.pddl
 *.pddl.soln
+*.ff
+nbproject

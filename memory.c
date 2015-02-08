@@ -487,7 +487,7 @@ NormOperator *new_NormOperator( Operator *op )
   NormOperator *result = ( NormOperator * ) calloc( 1, sizeof( NormOperator ) );
   CHECK_PTR(result);
 
-  result->operator = op;
+  result->_operator = op;
 
   result->num_vars = op->num_vars;
   for ( i = 0; i < op->num_vars; i++ ) {
@@ -533,7 +533,7 @@ MixedOperator *new_MixedOperator( Operator *op )
   MixedOperator *result = ( MixedOperator * ) calloc( 1, sizeof( MixedOperator ) );
   CHECK_PTR(result);
 
-  result->operator = op;
+  result->_operator = op;
 
   result->preconds = NULL;
   result->num_preconds = 0;
@@ -579,8 +579,8 @@ PseudoAction *new_PseudoAction( MixedOperator *op )
   PseudoAction *result = ( PseudoAction * ) calloc( 1, sizeof( PseudoAction ) );
   CHECK_PTR(result);
 
-  result->operator = op->operator;
-  for ( i = 0; i < op->operator->num_vars; i++ ) {
+  result->_operator = op->_operator;
+  for ( i = 0; i < op->_operator->num_vars; i++ ) {
     result->inst_table[i] = op->inst_table[i];
   }
 

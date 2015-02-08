@@ -234,8 +234,8 @@ void perform_reachability_analysis( void )
       for ( i = 0; i < no->num_vars; i++ ) {
 	tmp->inst_table[i] = t1->inst_table[i];
       }
-      tmp->name = no->operator->name;
-      tmp->num_name_vars = no->operator->number_of_real_params;
+      tmp->name = no->_operator->name;
+      tmp->num_name_vars = no->_operator->number_of_real_params;
       make_name_inst_table_from_NormOperator( tmp, no, t1 );
       tmp->next = gactions;
       tmp->num_effects = num;
@@ -312,11 +312,11 @@ void perform_reachability_analysis( void )
 
       tmp = new_Action();
       tmp->pseudo_action = pa;
-      for ( j = 0; j < pa->operator->num_vars; j++ ) {
+      for ( j = 0; j < pa->_operator->num_vars; j++ ) {
 	tmp->inst_table[j] = pa->inst_table[j];
       }
-      tmp->name = pa->operator->name;
-      tmp->num_name_vars = pa->operator->number_of_real_params;
+      tmp->name = pa->_operator->name;
+      tmp->num_name_vars = pa->_operator->number_of_real_params;
       make_name_inst_table_from_PseudoAction( tmp, pa );
       tmp->next = gactions;
       tmp->num_effects = pa->num_effects;
@@ -349,9 +349,9 @@ void perform_reachability_analysis( void )
       printf("\n\noperator %s:", goperators[i]->name);
       for ( a = gactions; a; a = a->next ) {
 	if ( ( a->norm_operator && 
-	       a->norm_operator->operator !=  goperators[i] ) ||
+	       a->norm_operator->_operator !=  goperators[i] ) ||
 	     ( a->pseudo_action &&
-	       a->pseudo_action->operator !=  goperators[i] ) ) {
+	       a->pseudo_action->_operator !=  goperators[i] ) ) {
 	  continue;
 	}
 	printf("\ntemplate: ");
@@ -422,7 +422,7 @@ void make_name_inst_table_from_NormOperator( Action *a, NormOperator *o, EasyTem
 
   int i, r = 0, m = 0;
 
-  for ( i = 0; i < o->operator->number_of_real_params; i++ ) {
+  for ( i = 0; i < o->_operator->number_of_real_params; i++ ) {
     if ( o->num_removed_vars > r &&
 	 o->removed_vars[r] == i ) {
       /* this var has been removed in NormOp;
@@ -450,7 +450,7 @@ void make_name_inst_table_from_PseudoAction( Action *a, PseudoAction *pa )
 
   int i;
 
-  for ( i = 0; i < pa->operator->number_of_real_params; i++ ) {
+  for ( i = 0; i < pa->_operator->number_of_real_params; i++ ) {
     a->name_inst_table[i] = pa->inst_table[i];
   }
 
@@ -605,9 +605,9 @@ void collect_relevant_facts( void )
 	if ( ( !a->norm_operator &&
 	       !a->pseudo_action ) ||
 	     ( a->norm_operator && 
-	       a->norm_operator->operator != goperators[i] ) ||
+	       a->norm_operator->_operator != goperators[i] ) ||
 	     ( a->pseudo_action &&
-	       a->pseudo_action->operator != goperators[i] ) ) {
+	       a->pseudo_action->_operator != goperators[i] ) ) {
 	  continue;
 	}
 	print_Action( a );
