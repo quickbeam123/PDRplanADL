@@ -27,5 +27,32 @@ int main(int argc, char** argv)
 {
   main_orig(argc,argv); 
   
+  printf("Relevant facts:\n");
+  for (int i = 0; i < gnum_relevant_facts; i++) {
+    print_ft_name(i);
+    printf("\n");
+  }
+  printf("\n");
+  
+  printf("Actions:\n");
+  for (Action* a = gactions; a; a = a->next ) {
+    print_Action(a);
+  }
+  printf("\n");
+  
+  printf("Initial state:\n");
+  for (int i = 0; i < ginitial_state.num_F; i++ ) {
+    print_ft_name(ginitial_state.F[i]);
+    printf("\n");
+  }
+  printf("\n");
+  
+  printf("Goal state:\n");
+  for (int i = 0; i < ggoal_state.num_F; i++ ) {
+    print_ft_name(ggoal_state.F[i]);
+    printf("\n");
+  }
+  printf("\n");
+  
   return 0;
 }

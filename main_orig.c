@@ -647,6 +647,9 @@ int main_orig( int argc, char *argv[] )
   times( &end );
   TIME( grelev_time );
 
+  output_planner_info();
+  return 0;
+  
   times( &start );
 
   /* now build globally accessable connectivity graph
@@ -755,6 +758,9 @@ void output_planner_info( void )
 	  greach_time, gnum_pp_facts, gnum_actions );
   printf( "\n            %7.2f seconds creating final representation with %d relevant facts", 
 	  grelev_time, gnum_relevant_facts );
+  
+  printf("\n\n");
+  /*
   printf( "\n            %7.2f seconds building connectivity graph",
 	  gconn_time );
   printf( "\n            %7.2f seconds searching, evaluating %d states, to a max depth of %d", 
@@ -767,6 +773,7 @@ void output_planner_info( void )
   print_official_result();
   
   exit( 0 );
+  */
 }
 
 
